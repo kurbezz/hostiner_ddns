@@ -48,13 +48,13 @@ async def sync():
 
 async def main():
     while True:
-        await sleep(300)
-
         try:
             await sync()
             print("DNS records updated successfully.")
         except Exception as e:
             print(f"Error during sync: {e}")
+
+        await sleep(300)
 
 
 if __name__ == "__main__":
