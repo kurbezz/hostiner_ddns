@@ -39,8 +39,7 @@ jobs:
           context: .
           file: ./Dockerfile
 
-      # -
-      #   name: Invoke deployment hook
-      #   uses: joelwmale/webhook-action@master
-      #   with:
-      #     url: ${{ secrets.WEBHOOK_URL }}
+      - name: Invoke deployment hook
+        uses: joelwmale/webhook-action@master
+        with:
+          url: ${{ secrets.WEBHOOK_URL }}
