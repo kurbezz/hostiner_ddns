@@ -6,7 +6,7 @@ on:
       - "main"
 
 jobs:
-  Build-Docker-Image:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,11 +35,13 @@ jobs:
         with:
           push: true
           platforms: linux/amd64
-          tags: ghcr.io/${{ env.IMAGE }}:latest
+          tags: ghcr.io/${{ env.IMAGE }}:latest,ghcr.io/${{ env.IMAGE }}:${{ github.sha }}
           context: .
           file: ./Dockerfile
+          build-args: |
+            COMMIT_HASH=${{ github.sha }}
 
       - name: Invoke deployment hook
         uses: joelwmale/webhook-action@master
         with:
-          url: ${{ secrets.WEBHOOK_URL }}
+          url: ${{ secrets.WEBHOOK_URL }}?SERVICE_TAG=${{ github.sha }}
