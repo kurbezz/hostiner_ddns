@@ -10,4 +10,6 @@ COPY ./main.py /app/main.py
 
 WORKDIR /app
 
+ENV PYTHONUNBUFFERED=1
+
 CMD uv run main.py
